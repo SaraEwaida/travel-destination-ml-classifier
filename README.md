@@ -1,90 +1,102 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage[utf-8]{inputenc}
-\usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\usepackage{listings}
-\usepackage{xcolor}
-
-\lstset{
-    language=Python,
-    basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue},
-    commentstyle=\color{gray},
-    stringstyle=\color{red},
-    breaklines=true,
-    tabsize=2
-}
-
-\title{Travel Destination Classification}
-\author{Sara Ewaida \& Yara Obaid}
-\date{January 2026}
-
-\begin{document}
-
-\maketitle
-
-\section*{Overview}
+# Travel Destination Classification
 
 Multi-class text classification: predict travel destination countries from descriptions.
 
-\begin{tabular}{ll}
-Dataset & 1,011 samples, 54 countries \\
-Feature & TF-IDF (1000 features, 1-2 grams) \\
-Best Model & Logistic Regression (66.49\% accuracy) \\
-Language & Python 3.7+
-\end{tabular}
+## Overview
 
-\section*{Results}
+| Item | Value |
+|------|-------|
+| Dataset | 1,011 samples, 54 countries |
+| Feature | TF-IDF (1000 features, 1-2 grams) |
+| Best Model | Logistic Regression (66.49%) |
+| Language | Python 3.7+ |
 
-\begin{tabular}{lcc}
-Model & Accuracy & F1-Score \\
-\hline
-k-NN & 36.76\% & 0.406 \\
-\textbf{Logistic Regression} & \textbf{66.49\%} & \textbf{0.611} \\
-Random Forest & 58.38\% & 0.545 \\
-\end{tabular}
+## Results
 
-\section*{Installation}
+| Model | Accuracy | F1-Score |
+|-------|----------|----------|
+| k-NN | 36.76% | 0.406 |
+| Logistic Regression | **66.49%** | **0.611** |
+| Random Forest | 58.38% | 0.545 |
 
-\begin{lstlisting}
+## Installation
+
+```bash
 pip install scikit-learn pandas numpy matplotlib seaborn
-\end{lstlisting}
+```
 
-\section*{Usage}
+## Quick Start
 
-\begin{lstlisting}[language=Python]
+```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
+# TF-IDF Features
 vectorizer = TfidfVectorizer(max_features=1000, ngram_range=(1,2))
 X = vectorizer.fit_transform(descriptions)
 
+# Train
 model = LogisticRegression(C=10.0)
 model.fit(X_train, y_train)
-\end{lstlisting}
+print(f"Accuracy: {model.score(X_test, y_test):.4f}")
+```
 
-\section*{Documentation}
+## Documentation
 
-\begin{itemize}
-    \item \texttt{Project\_Report.pdf} --- Full analysis and results
-    \item \texttt{01\_EDA.ipynb} --- Exploratory data analysis
-    \item \texttt{02\_preprocessing.ipynb} --- Data cleaning
-    \item \texttt{03\_modeling.ipynb} --- Model training
-\end{itemize}
+- **Project_Report.pdf** - Full analysis and results
+- **01_EDA.ipynb** - Exploratory data analysis
+- **02_preprocessing.ipynb** - Data cleaning
+- **03_modeling.ipynb** - Model training & evaluation
 
-\section*{Key Insights}
+## Key Insights
 
-\begin{itemize}
-    \item Country-specific keywords are strong predictors
-    \item Class imbalance affects minority classes
-    \item Logistic Regression outperforms ensemble methods
-    \item Hierarchical classification improves interpretability
-\end{itemize}
+✅ Country-specific keywords are strong predictors  
+✅ Logistic Regression outperforms ensemble methods  
+✅ Hierarchical classification improves interpretability  
+⚠️ Class imbalance affects minority classes  
+⚠️ Long descriptions slightly reduce accuracy  
 
-\section*{Authors}
+## Top Discriminative Words
 
-Sara Ewaida (1203048), Yara Obaid (1212482)
+| Country | Top Words |
+|---------|-----------|
+| Italy | venice, rome, canal, colosseum |
+| France | eiffel, paris, tower, foreground |
+| Spain | barcelona, sagrada, alhambra, madrid |
+| Japan | japan, temple, tokyo, japanese |
 
-Birzeit University | ENCS5341 | Jan 2026
+## Error Analysis
 
-\end{document}
+**Easiest to classify:** Spain, Switzerland, Palestine (100%)  
+**Hardest to classify:** USA (40%)  
+
+**Top misclassifications:**
+- USA → Switzerland
+- Turkey → Italy
+- USA → Italy
+
+## Limitations
+
+- Class imbalance (rare countries have few samples)
+- TF-IDF ignores semantic meaning
+- Textual similarity between geographically close countries
+- Missing values in auxiliary columns
+
+## Future Improvements
+
+- Word embeddings (Word2Vec, FastText)
+- Transformer models (BERT, RoBERTa)
+- Class weighting / SMOTE resampling
+- Multi-modal approach (text + images)
+
+## Authors
+
+**Sara Ewaida** (1203048)  
+**Yara Obaid** (1212482)
+
+Electrical & Computer Engineering Department  
+Birzeit University | ENCS5341 | January 2026
+
+---
+
+For more details, see Project_Report.pdf and the Jupyter notebooks.
