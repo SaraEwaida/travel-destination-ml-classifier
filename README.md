@@ -91,12 +91,11 @@ print(f"Accuracy: {model.score(X_test, y_test):.4f}")
 
 ## Authors
 
-**Sara Ewaida** (1203048)  
-**Yara Obaid** (1212482)
+**Sara Ewaida** 
 
 Electrical & Computer Engineering Department  
 Birzeit University | ENCS5341 | January 2026
 
 ---
 
-For more details, see Project_Report.pdf and the Jupyter notebooks.
+For more details, see ML_NLP.pdf and the Jupyter notebooks.
